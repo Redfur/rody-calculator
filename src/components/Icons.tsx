@@ -62,3 +62,38 @@ export const AlertIcon = () => (
     <path d="M12 9v4M12 17h.01" />
   </Svg>
 );
+export const PillIcon = () => (
+  <Svg>
+    <path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l6-6a4.95 4.95 0 0 1 7 7z" />
+    <path d="M8.5 8.5l7 7" />
+  </Svg>
+);
+export const ChartIcon = () => (
+  <Svg>
+    <path d="M3 3v18h18" />
+    <path d="M7 15l4-5 3 3 5-7" />
+  </Svg>
+);
+export const InfoIcon = () => (
+  <Svg>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5M12 8h.01" />
+  </Svg>
+);
+export const PlusIcon = () => (
+  <Svg width={2.2}>
+    <path d="M12 5v14M5 12h14" />
+  </Svg>
+);
+export const DripIcon = () => (
+  <Svg>
+    <path d="M8 2h8M9 2v6l-3 4v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8l-3-4V2" />
+    <path d="M7 14h10" />
+  </Svg>
+);
+export const PersonIcon = () => (
+  <Svg>
+    <circle cx="12" cy="7" r="4" />
+    <path d="M5 21v-1a7 7 0 0 1 14 0v1" />
+  </Svg>
+);
