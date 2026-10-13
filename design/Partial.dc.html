@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ввод в процессе</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&amp;family=Unbounded:wght@500;600&amp;display=swap">
+<style>
+body{margin:0}
+.app{--bg:#F5F4F8;--surface:#FFFFFF;--ink:#1D1925;--muted:#655F70;--line:#E3DFE9;--field:#F2F0F6;--accent:#6E2A55;--accent-ink:#FFFFFF;--tint-accent:#F4E8EF;--tint-neutral:#ECE9F1;--p1:#4B43A0;--p2:#C23E68;--p3:#1F7F6B;--water:#2070AA;--tint-water:#E3EEF7;--err:#B3261E;--errbg:#FCEBE9;--warn:#7A4E00;--warnbg:#FBEFD6;
+width:390px;min-height:1720px;box-sizing:border-box;padding:0 16px 32px;display:flex;flex-direction:column;gap:14px;background:var(--bg);color:var(--ink);font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;line-height:1.35}
+.app *{box-sizing:border-box}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 0 6px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.app h1{margin:4px 0 0;font:600 20px/1.2 'Unbounded','Golos Text',system-ui,sans-serif;letter-spacing:-.01em}
+.btn-ghost{min-height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px 'Golos Text',system-ui,sans-serif}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.card-h{display:flex;align-items:center;gap:10px}
+.ico{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none}
+.card-t{font-weight:600;font-size:16px;line-height:1.2}
+.card-s{font-size:13px;color:var(--muted);margin-top:2px}
+.spine{display:flex;flex-direction:column}
+.ev,.seg{display:grid;grid-template-columns:20px minmax(0,1fr);column-gap:12px}
+.rail{display:flex;flex-direction:column;align-items:center}
+.dot{width:14px;height:14px;border-radius:50%;border:3px solid var(--ink);background:var(--surface);margin-top:3px;flex:none}
+.dot.empty{border-color:var(--line)}
+.ln{width:3px;flex:1;border-radius:2px;margin-top:4px;min-height:8px}
+.seg .ln{margin-top:0}
+.ln.empty{background:var(--line)}
+.ev-label{display:block;font-weight:600;line-height:20px}
+.fields{display:flex;gap:8px;margin-top:8px}
+.date{display:flex;align-items:center;height:48px;border-radius:10px;background:var(--field);flex:none}
+.date button{width:40px;height:48px;border:0;background:none;color:var(--muted);display:grid;place-items:center;padding:0;border-radius:10px}
+.date input{width:86px;border:0;background:none;text-align:center;font:500 15px 'Golos Text',system-ui,sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;padding:0}
+.date input.auto{color:var(--muted)}
+.date input::placeholder{color:var(--muted)}
+.time{flex:1;min-width:0;height:48px;border-radius:10px;border:2px solid transparent;background:var(--field);text-align:center;font:600 22px 'Golos Text',system-ui,sans-serif;color:var(--ink);font-variant-numeric:tabular-nums;padding:0}
+.time::placeholder{color:var(--muted);font-weight:500;font-size:16px}
+.time.focus{border-color:var(--accent);background:var(--surface)}
+.seg-body{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0 12px}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--muted)}
+.sw{width:10px;height:10px;border-radius:3px;flex:none}
+.wsw{width:14px;height:0;border-top:3px dashed var(--water);flex:none}
+.dur{font-weight:600;font-variant-numeric:tabular-nums}
+.none{color:var(--muted);font-weight:500}
+.kv{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--field)}
+.kv .k{font-size:14px;color:var(--muted)}
+.kv .v{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.total-k{font-size:13px;font-weight:500;color:var(--muted)}
+.total-v{font:600 30px/1.1 'Unbounded','Golos Text',system-ui,sans-serif;margin-top:6px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.lines{margin:0;display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
+.row dt{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.row dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.scale{margin:0}
+.track{display:flex;gap:2px;height:14px;border-radius:7px;overflow:hidden;background:var(--field)}
+.wtrack{position:relative;height:4px;margin-top:8px}
+.wbar{position:absolute;top:0;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--water) 0 6px,transparent 6px 10px)}
+.wbar.open{-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+.ticks{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.btn-primary{width:100%;min-height:52px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:600 16px 'Golos Text',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+.foot{font-size:12px;color:var(--muted);padding:2px 4px 0}
+</style>
+</helmet>
+<div class="app">
+
+<header class="top">
+<div>
+<div class="eyebrow">Калькулятор</div>
+<h1>Периоды родов</h1>
+</div>
+<button type="button" class="btn-ghost">Очистить</button>
+</header>
+
+<section class="card" aria-label="События родов">
+<div class="spine">
+
+<div class="ev">
+<div class="rail"><span class="dot"></span><span class="ln" style="background: var(--p1)"></span></div>
+<div>
+<label class="ev-label" for="p-t1">Начало схваток</label>
+<div class="fields">
+<div class="date"><button type="button" aria-label="На день раньше"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button><input id="p-d1" value="13.10.2026" inputmode="numeric" aria-label="Дата начала схваток"><button type="button" aria-label="На день позже"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button></div>
+<input class="time" id="p-t1" value="22:40" inputmode="numeric">
+</div>
+</div>
+</div>
+
+<div class="seg">
+<div class="rail"><span class="ln" style="background: var(--p1)"></span></div>
+<div class="seg-body"><span class="tag"><span class="sw" style="background: var(--p1)"></span>1 период</span><span class="dur">8 ч 10 мин</span></div>
+</div>
+
+<div class="ev">
+<div class="rail"><span class="dot"></span><span class="ln empty"></span></div>
+<div>
+<label class="ev-label" for="p-t2">Начало потуг</label>
+<div class="fields">
+<div class="date"><button type="button" aria-label="На день раньше"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button><input id="p-d2" value="14.10.2026" inputmode="numeric" aria-label="Дата начала потуг"><button type="button" aria-label="На день позже"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button></div>
+<input class="time" id="p-t2" value="06:50" inputmode="numeric">
+</div>
+</div>
+</div>
+
+<div class="seg">
+<div class="rail"><span class="ln empty"></span></div>
+<div class="seg-body"><span class="tag"><span class="sw" style="background: var(--p2)"></span>2 период</span><span class="dur none">—</span></div>
+</div>
+
+<div class="ev">
+<div class="rail"><span class="dot empty"></span><span class="ln empty"></span></div>
+<div>
+<label class="ev-label" for="p-t3">Рождение плода</label>
+<div class="fields">
+<div class="date"><button type="button" aria-label="На день раньше"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button><input id="p-d3" class="auto" value="14.10.2026" inputmode="numeric" aria-label="Дата рождения плода"><button type="button" aria-label="На день позже"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button></div>
+<input class="time focus" id="p-t3" value="" placeholder="чч:мм" inputmode="numeric">
+</div>
+</div>
+</div>
+
+<div class="seg">
+<div class="rail"><span class="ln empty"></span></div>
+<div class="seg-body"><span class="tag"><span class="sw" style="background: var(--p3)"></span>3 период</span><span class="dur none">—</span></div>
+</div>
+
+<div class="ev">
+<div class="rail"><span class="dot empty"></span></div>
+<div>
+<label class="ev-label" for="p-t4">Рождение плаценты</label>
+<div class="fields">
+<div class="date"><button type="button" aria-label="На день раньше"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button><input id="p-d4" value="" placeholder="дд.мм.гггг" inputmode="numeric" aria-label="Дата рождения плаценты"><button type="button" aria-label="На день позже"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button></div>
+<input class="time" id="p-t4" value="" placeholder="чч:мм" inputmode="numeric">
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="card" aria-label="Излитие вод">
+<div class="card-h">
+<span class="ico" style="background: var(--tint-water); color: var(--water)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4.5-6 7.7-6 11a6 6 0 0 0 12 0c0-3.3-3-6.5-6-11z"></path></svg></span>
+<div>
+<label class="card-t" for="p-t5">Излитие вод / амниотомия</label>
+<div class="card-s">Начало безводного промежутка</div>
+</div>
+</div>
+<div class="fields" style="margin-top: 0">
+<div class="date"><button type="button" aria-label="На день раньше"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button><input id="p-d5" value="13.10.2026" inputmode="numeric" aria-label="Дата излития вод"><button type="button" aria-label="На день позже"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button></div>
+<input class="time" id="p-t5" value="15:10" inputmode="numeric">
+</div>
+<div class="kv">
+<span class="k">18 ч безводного периода</span>
+<span class="v">14.10 в 09:10</span>
+</div>
+</section>
+
+<section class="card" aria-label="Операция">
+<div class="card-h" style="justify-content: space-between">
+<div style="display: flex; align-items: center; gap: 10px">
+<span class="ico" style="background: var(--tint-neutral); color: var(--muted)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2.5M9 2h6"></path></svg></span>
+<div>
+<div class="card-t">Операция</div>
+<div class="card-s">Не было</div>
+</div>
+</div>
+<button type="button" class="btn-ghost">Добавить</button>
+</div>
+</section>
+
+<section class="card" aria-label="Результат">
+<div>
+<div class="total-k">Общая продолжительность родов</div>
+<div class="total-v none">—</div>
+</div>
+<dl class="lines">
+<div class="row"><dt><span class="sw" style="background: var(--p1)"></span>1 период</dt><dd>8 ч 10 мин</dd></div>
+<div class="row"><dt><span class="sw" style="background: var(--p2)"></span>2 период</dt><dd class="none">—</dd></div>
+<div class="row"><dt><span class="sw" style="background: var(--p3)"></span>3 период</dt><dd class="none">—</dd></div>
+<div class="row"><dt><span class="wsw"></span>Безводный промежуток</dt><dd class="none">—</dd></div>
+</dl>
+<figure class="scale" aria-label="Шкала родов по введённым данным">
+<div class="track">
+<span style="flex: 450 0 0"></span>
+<span style="flex: 490 0 0; background: var(--p1)"></span>
+</div>
+<div class="wtrack"><span class="wbar open" style="left: 0; width: 100%"></span></div>
+<div class="ticks"><span>13.10 · 15:10</span><span>14.10 · 06:50</span></div>
+</figure>
+<button type="button" class="btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Скопировать</button>
+</section>
+
+<section class="card" aria-label="Эноксапарин">
+<div class="card-h">
+<span class="ico" style="background: var(--tint-accent); color: var(--accent)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2l4 4M17 7l3-3M19 9l-8.7 8.7a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"></path></svg></span>
+<div>
+<div class="card-t">Эноксапарин</div>
+<div class="card-s">Даты появятся после ввода рождения плода</div>
+</div>
+</div>
+<div class="kv"><span class="k">Начало отсчёта</span><span class="v none">—</span></div>
+<div class="kv"><span class="k">10 дней</span><span class="v none">—</span></div>
+<div class="kv"><span class="k">42 дня</span><span class="v none">—</span></div>
+</section>
+
+<p class="foot" style="margin: 0">Работает без интернета. Данные хранятся только на этом телефоне.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
