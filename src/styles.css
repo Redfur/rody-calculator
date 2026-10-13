@@ -740,3 +740,470 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- Вкладки ---------- */
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--tint-neutral);
+}
+.tab {
+  min-height: 44px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--muted);
+  font: 500 14px var(--font);
+}
+.tab.on {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- Выбор вариантов ---------- */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 56px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--field);
+  text-align: left;
+}
+.option.on {
+  border-color: var(--accent);
+  background: var(--tint-accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.option-t {
+  font-weight: 600;
+}
+.option-s {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.seg-ctl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--field);
+}
+.seg-btn {
+  min-height: 44px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: var(--muted);
+  font: 500 14px var(--font);
+}
+.seg-btn.on {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--field);
+  text-align: left;
+  font-size: 15px;
+}
+.switch {
+  flex: none;
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--line);
+  transition: background 0.15s;
+}
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s;
+}
+.switch.on {
+  background: var(--accent);
+}
+.switch.on::after {
+  transform: translateX(18px);
+}
+
+.pad-top {
+  margin-top: 8px;
+}
+.k-sub {
+  display: block;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------- Антибиотики: график ---------- */
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.plan-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.plan-doses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 6px;
+}
+.dose {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: var(--field);
+  font-variant-numeric: tabular-nums;
+}
+.dose-n {
+  font-size: 11px;
+  color: var(--muted);
+}
+.dose-t {
+  font-weight: 600;
+  font-size: 16px;
+}
+.dose.end {
+  background: var(--tint-accent);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+.dose-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ---------- Партограмма: осмотры ---------- */
+
+.rec {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 52px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--field);
+  text-align: left;
+}
+.rec-t {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.rec-v {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--accent);
+  background: var(--surface);
+}
+.editor-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.editor-h .sub-label {
+  margin: 0;
+}
+.link-btn {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: 600 14px var(--font);
+}
+.chips {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+.chips.wide {
+  grid-template-columns: repeat(2, 1fr);
+}
+.chip {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--field);
+  font: 600 16px var(--font);
+  font-variant-numeric: tabular-nums;
+}
+.chips.wide .chip {
+  font-size: 15px;
+}
+.chip.on {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.editor-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+.btn-primary.small {
+  width: auto;
+  min-height: 44px;
+  padding: 0 22px;
+  font-size: 15px;
+}
+
+/* ---------- Партограмма: подсказки ---------- */
+
+.hints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hint {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.hint svg {
+  flex: none;
+  margin-top: 1px;
+}
+.hint p {
+  margin: 0;
+}
+.hint.alert {
+  background: var(--errbg);
+  color: var(--err);
+}
+.hint.warn {
+  background: var(--softbg);
+  color: var(--soft);
+}
+.hint.info {
+  background: var(--field);
+  color: var(--ink);
+}
+.hint-src {
+  margin-top: 4px !important;
+  font-size: 12px;
+  opacity: 0.8;
+}
+.tactic {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--tint-accent);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.tactic-t {
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.tactic ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tactic .hint-src {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+.disclaimer {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Партограмма: график ---------- */
+
+.pg {
+  margin: 0;
+}
+.pg svg {
+  display: block;
+  font-family: var(--font);
+}
+.pg-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.pg-axis {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.pg-active {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+.pg-ylab,
+.pg-xlab {
+  fill: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.pg-note {
+  fill: var(--muted);
+  font-size: 9px;
+}
+.pg-note.water {
+  fill: var(--water);
+}
+.pg-note.oxy {
+  fill: var(--accent);
+}
+.pg-waters {
+  stroke: var(--water);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.pg-oxy {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+.pg-dil-line {
+  fill: none;
+  stroke: var(--p1);
+  stroke-width: 2;
+}
+.pg-dil {
+  fill: var(--p1);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.pg-head-line {
+  fill: none;
+  stroke: var(--p3);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 2;
+}
+.pg-head {
+  fill: var(--surface);
+  stroke: var(--p3);
+  stroke-width: 2;
+}
+.pg-bar {
+  fill: var(--p2);
+}
+.pg-bar.mid {
+  fill: var(--p2);
+  opacity: 0.6;
+}
+.pg-bar.weak {
+  fill: var(--p2);
+  opacity: 0.3;
+}
+.pg-count {
+  fill: var(--ink);
+  font-size: 9px;
+  font-weight: 600;
+}
+.pg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.pg-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pg-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.lg-dil {
+  background: var(--p1);
+}
+.lg-head {
+  border: 2px solid var(--p3);
+}
+.lg-bar {
+  border-radius: 2px !important;
+  background: var(--p2);
+}
+.pg-from {
+  margin-left: auto;
+}

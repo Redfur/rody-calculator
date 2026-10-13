@@ -85,7 +85,16 @@ export function EventFields({ id, of, value, suggestion, mark, flush, timeRef, o
           maxLength={10}
           aria-label={`Дата ${of}`}
           aria-invalid={bad || dateSoft ? true : undefined}
-          onFocus={() => setFocus('date')}
+          onFocus={(e) => {
+            setFocus('date');
+            // Тап по пустой дате сразу подставляет дату: от предыдущего события или сегодняшнюю.
+            if (value.date === '' && suggestion) {
+              const el = e.currentTarget;
+              el.value = suggestion;
+              el.select();
+              onDate(suggestion);
+            }
+          }}
           onBlur={() => {
             setFocus(null);
             const fixed = finalizeDate(value.date);
